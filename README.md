@@ -24,6 +24,6 @@ error_reporting(E_STRICT);
 ```
 - The third and least recommended method is to hack the .htaccess to include the appropriate settings. Ultimately the method you choose is up to you. 
 
- - To use this class with WordPress:
+- To use this class with WordPress:
 
-    The way this file is intended to be used is as a mu-plugin because it will be automatically loaded by WordPress on startup. This will make the class available to the entirety of WordPress and immediately resolve any namespace conflicts. However, if you intend on building a standalone plugin that might be published on WordPress.org then you will need start with the standalone-base implementation and carefully set the namespace accordingly. 
+The way this file is intended to be used is as a mu-plugin because it will be automatically loaded by WordPress on startup. This will make the class available to the entirety of WordPress and immediately resolve any namespace conflicts. However, if you intend on building a standalone plugin that might be published on WordPress.org then you will need start with the standalone-base implementation and carefully set the namespace accordingly. 

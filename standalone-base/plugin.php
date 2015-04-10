@@ -38,8 +38,10 @@ License URI: http://opensource.org/licenses/BSD-3-Clause
     OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-require(__DIR__ . '/inc/base-plugin.php');
+require(__DIR__ . '/inc/singleton-base.php');
 
+class Your_New_Plugin_Controller extends Base_Plugin {
+    const VERSION = '1.0';
+}
 
-
-//$rapc = Rd_Ad_Pixel_Controller::get_instance();
+$ynpc = Your_New_Plugin_Controller::get_instance();

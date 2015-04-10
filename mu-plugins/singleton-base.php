@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Singleton Base Class
-Version: 1.2
+Version: 1.3
 Description: Sets a standard class to build new plugin from.
 Author: Mikel King
 Text Domain: singleton-base-plugin
@@ -58,6 +58,8 @@ abstract class Singleton_Base {
 
     protected function deactivation_actions() {}
 
+    protected function uninstallation_actions() {}
+
     public static function init() {}
 
     public function __activator() {
@@ -70,6 +72,12 @@ abstract class Singleton_Base {
     public function __deactivator() {
         if (self::$activated) {
             $this->deactivation_actions();
+        }
+    }
+
+    public function __uninstallor() {
+        if (self::$activated) {
+            $this->uninstallation_actions();
         }
     }
 

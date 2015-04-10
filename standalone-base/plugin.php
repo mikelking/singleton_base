@@ -1,11 +1,11 @@
 <?php
-namespace
+namespace YOUR_PLUGIN_NAMESPACE
 /*
-Plugin Name:
+Plugin Name: YOUR_PLUGIN_NAME
 Version: 1.0
-Description:
+Description: YOUR_PLUGIN_DESCRIPTION
 Author: Mikel King
-Text Domain:
+Text Domain: YOUR_PLUGIN_TEXT_DOMAIN
 License: BSD(3 Clause)
 License URI: http://opensource.org/licenses/BSD-3-Clause
 
@@ -40,8 +40,22 @@ License URI: http://opensource.org/licenses/BSD-3-Clause
 
 require(__DIR__ . '/inc/singleton-base.php');
 
-class Your_New_Plugin_Controller extends Base_Plugin {
+class Your_Plugin_Controller extends Base_Plugin {
     const VERSION = '1.0';
+
+    protected function __construct() {
+        register_activation_hook( __FILE__, array( 'Your_Plugin_Controller', '__activator' ) );
+        register_activation_hook( __FILE__, array( 'Your_Plugin_Controller', '__deactivator' ) );
+        register_uninstall_hook( __FILE__, array( 'Your_Plugin_Controller', '__uninstallor' ) );
+    }
+
+
+
+    protected function activation_actions() {}
+
+    protected function deactivation_actions() {}
+
+    protected function uninstallation_actions() {}
 }
 
-$ynpc = Your_New_Plugin_Controller::get_instance();
+$ypc = Your_Plugin_Controller::get_instance();

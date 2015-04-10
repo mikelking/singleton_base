@@ -43,3 +43,8 @@ There is a huge advantage to using the mu based solution in that if you develop 
 ### That's about all there is to it, because mu-plugins are kind of set it and forget it utilities. In addition because they have not on/off switches you do not have to worry about someone inadvertently deactivating ALL of your plugin that depend on it.
  
  Ok so you are wondering what's the catch? Well for one WordPress does not install the mu-plugins tree; therefore, you must do that manually. In addition you must manually keep it up to date. Finally mu-plugins do not normall (although there are ways around this) work from within subdirectories like regular plugins. They are meant to have limited scope and minimal (generally zero) configuration.
+ 
+ - TODO: Integration with mu-plugins autoloader
+   - Theory is that the singleton-base.php will have to be renamed to 000-singleton-base.php so that it becomes the first class loaded by WordPress.
+     - Experimentation around this will begin shortly
+     - The autoloader will extend the Singleton_Base and implement a directory iterator

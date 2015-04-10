@@ -39,3 +39,5 @@ require(__DIR__ . '/inc/singleton-base.php');
 ```
 
 There is a huge advantage to using the mu based solution in that if you develop multiple plugins based on this singleton class and the project is updated or improved you simple drop in the single file and all of your plugins immediately receive the benefits.
+
+### That's about all there is to it, because mu-plugins are kind of set it and forget it utilities.

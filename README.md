@@ -21,6 +21,8 @@ define('DEFAULT_ERROR_LEVEL', 'E_SRICT');
 date_default_timezone_set("America/New_York");
 error_reporting(E_STRICT);
 ```
+- The third and least recommended method is to hack the .htaccess to include the appropriate settings. Ultimately the method you choose is up to you. 
+
  - To use this class with WordPress:
 
     The way this file is intended to be used is as a mu-plugin because it will be automatically loaded by WordPress on startup. This will make the class available to the entirety of WordPress. However, if you intend on building a standalone plugin then you will need start with the standalone-base implementation. 

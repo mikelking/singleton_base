@@ -60,7 +60,7 @@ abstract class Singleton_Base {
 
     protected function uninstallation_actions() {}
 
-    public static function init() {}
+    protected static function init() {}
 
     public function __activator() {
         if (! self::$activated) {
@@ -128,6 +128,7 @@ abstract class Singleton_Base {
 
         if ( self::$instance === null ) {
             self::$instance = new static();
+            self::init();
         }
 
         return( self::$instance );

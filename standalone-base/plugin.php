@@ -1,5 +1,5 @@
 <?php
-namespace YOUR_PLUGIN_NAMESPACE
+namespace YOUR_PLUGIN_NAMESPACE;
 /*
 Plugin Name: YOUR_PLUGIN_NAME
 Version: 1.0
@@ -43,19 +43,24 @@ require(__DIR__ . '/inc/singleton-base.php');
 class Your_Plugin_Controller extends Base_Plugin {
     const VERSION = '1.0';
 
-    protected function __construct() {
-        register_activation_hook( __FILE__, array( 'Your_Plugin_Controller', '__activator' ) );
-        register_activation_hook( __FILE__, array( 'Your_Plugin_Controller', '__deactivator' ) );
-        register_uninstall_hook( __FILE__, array( 'Your_Plugin_Controller', '__uninstallor' ) );
-    }
-
-
+    protected function __construct() {}
 
     protected function activation_actions() {}
 
     protected function deactivation_actions() {}
 
     protected function uninstallation_actions() {}
+
+    protected static function init() {
+        // This is how to add an activation hook if needed
+        register_activation_hook( __FILE__, array( 'Your_Plugin_Controller', '__activator' ) );
+
+        // This is how to add an deactivation hook if needed
+        register_activation_hook( __FILE__, array( 'Your_Plugin_Controller', '__deactivator' ) );
+
+        // This is how to add an uninstallation hook if needed
+        register_uninstall_hook( __FILE__, array( 'Your_Plugin_Controller', '__uninstallor' ) );
+    }
 }
 
 $ypc = Your_Plugin_Controller::get_instance();

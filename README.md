@@ -1,5 +1,6 @@
 # singleton_base
-A singleton class for use as base for plugins like used in WordPress
+##A singleton class for use in php project and as base for plugins like used in WordPress.
+    ####The code in the project is licensed under BSD(3-clause) http://opensource.org/licenses/BSD-3-Clause because there is nothing WordPress specific and it is intended to apply to a larger audience. You are free to incorporate this subsystem code into your projects in the same way that WordPress has incorporated several other BSD3 licensed subsystems into the core project. These subsystems retain their licensing because BSD3 is happily compatible with the GPL goodness of the rest of the project. In short this code *must* remain BSD3 and distributed with it's license references intact, but you are free to license your code as you see fit.    
 
 - This system replies on you having properly set your timezone and error reporting level in PHP. While there are numerous ways in which to do this the best practice is either in the php.ini or vhost config. The php.ini if extremely well documented so I will only cover the other options here;
 ```php
@@ -21,4 +22,4 @@ error_reporting(E_STRICT);
 ```
  - To use this class with WordPress:
 
-    The way this file is intended to be used is as a mu-plugin because it will be automatically loaded by WordPress on startup. This will make the class available to the entirety of WordPress
+    The way this file is intended to be used is as a mu-plugin because it will be automatically loaded by WordPress on startup. This will make the class available to the entirety of WordPress. However, if you intend on building a standalone plugin then you will need start with the standalone-base implementation. 

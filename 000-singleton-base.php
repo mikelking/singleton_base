@@ -44,8 +44,6 @@ abstract class Singleton_Base {
 
     private static $instance;
 
-    protected static $activated = false;
-
     public static $class_name;
     public static $exception_msg_hdr;
     public static $exception_msg_dvdr;
@@ -54,32 +52,7 @@ abstract class Singleton_Base {
 
     private function __clone() {}
 
-    protected function activation_actions() {}
-
-    protected function deactivation_actions() {}
-
-    protected function uninstallation_actions() {}
-
     protected static function init() {}
-
-    public function __activator() {
-        if (! self::$activated) {
-            self::$activated = true;
-            $this->activation_actions();
-        }
-    }
-
-    public function __deactivator() {
-        if (self::$activated) {
-            $this->deactivation_actions();
-        }
-    }
-
-    public function __uninstallor() {
-        if (self::$activated) {
-            $this->uninstallation_actions();
-        }
-    }
 
     public function __call( $method_name, $arguments ) {
         self::$exception_msg_hdr = 'Unknown method: ';

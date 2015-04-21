@@ -1,11 +1,10 @@
 <?php
-namespace YOUR_PLUGIN_NAMESPACE;
 /*
-Plugin Name: YOUR_PLUGIN_NAME
+Plugin Name: Base Plugin Class
 Version: 1.0
-Description: YOUR_PLUGIN_DESCRIPTION
+Description: Sets a standard class to build new plugin from.
 Author: Mikel King
-Text Domain: YOUR_PLUGIN_TEXT_DOMAIN
+Text Domain: base-plugin
 License: BSD(3 Clause)
 License URI: http://opensource.org/licenses/BSD-3-Clause
 
@@ -38,10 +37,11 @@ License URI: http://opensource.org/licenses/BSD-3-Clause
     OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-require(__DIR__ . '/inc/000-singleton-base.php');
-
-class Your_Plugin_Controller extends Base_Plugin {
-    const VERSION = '1.0';
+class Base_Plugin extends Singleton_Base {
+    const IN_FOOTER = true;
+    const IN_HEADER = false;
+    
+    protected static $activated = false;
 
     protected function __construct() {}
 
@@ -50,6 +50,10 @@ class Your_Plugin_Controller extends Base_Plugin {
     protected function deactivation_actions() {}
 
     protected function uninstallation_actions() {}
+
+    public function get_asset_url( $asset_file, $path = null ) {
+        return( plugins_url( $asset_file, $path ));
+    }
 
     protected static function init() {
         // This is how to add an activation hook if needed
@@ -61,6 +65,24 @@ class Your_Plugin_Controller extends Base_Plugin {
         // This is how to add an uninstallation hook if needed
         register_uninstall_hook( __FILE__, array( 'Your_Plugin_Controller', '__uninstallor' ) );
     }
-}
 
-$ypc = Your_Plugin_Controller::get_instance();
+    public function __activator() {
+        if (! self::$activated) {
+            self::$activated = true;
+            $this->activation_actions();
+        }
+    }
+
+    public function __deactivator() {
+        if (self::$activated) {
+            $this->deactivation_actions();
+        }
+    }
+
+    public function __uninstallor() {
+        if (self::$activated) {
+            $this->uninstallation_actions();
+        }
+    }
+
+}

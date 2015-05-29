@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Singleton Base Class
-Version: 1.3
+Version: 1.4
 Description: Sets a standard class to build new plugin from.
 Author: Mikel King
 Text Domain: singleton-base-plugin
@@ -43,6 +43,7 @@ abstract class Singleton_Base {
     const EXCEPTION_HDR = 'PHP Exception:  ';
 
     private static $instance;
+    private static $instatiator;
 
     public static $class_name;
     public static $exception_msg_hdr;
@@ -79,11 +80,22 @@ abstract class Singleton_Base {
         return( get_class() );
     }
 
+    public static function get_arguments( $arguments = null ) {
+        $exception_msg = ' with no arguments.';
+        if (isset($arguments) && is_array($arguments)) {
+            $exception_msg = ' with these arguments: ';
+            $exception_msg .= implode( ', ', $arguments );
+        } elseif (isset($arguments) && is_string($arguments)) {
+            $exception_msg = ' with this argument: ' .  $arguments;
+        }
+        return( $exception_msg );
+    }
+
     public static function get_exception_msg( $method_name, $arguments ) {
         $exception_msg  = self::$exception_msg_hdr;
         $exception_msg .= self::get_class_name() . self::$exception_msg_dvdr . $method_name;
-        $exception_msg .= ' with these arguments: ';
-        $exception_msg .= implode( ', ', $arguments );
+        $exception_msg .= self::get_arguments( $arguments );
+        $exception_msg .= self::get_instantiator_msg();
         $exception_msg .= PHP_EOL;
         return( $exception_msg );
     }
@@ -96,8 +108,23 @@ abstract class Singleton_Base {
         error_log(self::EXCEPTION_HDR . $exception_msg, 0 );
     }
 
-    public static function get_instance() {
+    public static function set_instantiator( $instatiator = null ) {
+        if (isset($instatiator)) {
+            self::$instatiator = $instatiator;
+        }
+    }
+
+    public static function get_instantiator_msg() {
+        $msg = ' by an undetermined instantiation';
+        if (self::$instatiator) {
+            $msg = ' instantiated by this file: ' . self::$instatiator;
+        }
+        return( $msg );
+    }
+
+    public static function get_instance( $instatiator = null ) {
         self::$instance = null;
+        self::set_instantiator($instatiator);
 
         if ( self::$instance === null ) {
             self::$instance = new static();

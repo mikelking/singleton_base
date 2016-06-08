@@ -37,7 +37,7 @@ License URI: http://opensource.org/licenses/BSD-3-Clause
 	OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-abstract class Base_Plugin {
+abstract class Singleton_Base {
 	const ENABLED	   = true;
 	const DISABLED	  = false;
 	const EXCEPTION_HDR = 'PHP Exception:  ';

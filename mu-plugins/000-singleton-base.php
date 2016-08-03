@@ -65,14 +65,14 @@ abstract class Singleton_Base {
 	public static function init() {}
 
 	public function activator() {
-		if ( ! self::$activated ) {
-			self::$activated = true;
+		if ( ! static::$activated ) {
+			static::$activated = true;
 			$this->activation_actions();
 		}
 	}
 
 	public function deactivator() {
-		if ( self::$activated ) {
+		if ( static::$activated ) {
 			$this->deactivation_actions();
 		}
 	}
@@ -116,8 +116,8 @@ abstract class Singleton_Base {
 	public static function get_exception_msg( $method_name, $arguments ) {
 		$exception_msg  = static::$exception_msg_hdr;
 		$exception_msg .= get_class( static::$instance ) . static::$exception_msg_dvdr . $method_name;
-		$exception_msg .= static::get_arguments( $arguments );
-		$exception_msg .= static::get_instantiator_msg();
+		$exception_msg .= self::get_arguments( $arguments );
+		$exception_msg .= self::get_instantiator_msg();
 		//		$exception_msg .= PHP_EOL;
 		return( $exception_msg );
 	}

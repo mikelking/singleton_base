@@ -57,29 +57,29 @@ class Base_Plugin extends Singleton_Base {
 
     protected static function init() {
         // This is how to add an activation hook if needed
-        register_activation_hook( __FILE__, array( 'Your_Plugin_Controller', '__activator' ) );
+        register_activation_hook( __FILE__, array( 'Your_Plugin_Controller', 'activator' ) );
 
         // This is how to add an deactivation hook if needed
-        register_activation_hook( __FILE__, array( 'Your_Plugin_Controller', '__deactivator' ) );
+        register_activation_hook( __FILE__, array( 'Your_Plugin_Controller', 'deactivator' ) );
 
         // This is how to add an uninstallation hook if needed
-        register_uninstall_hook( __FILE__, array( 'Your_Plugin_Controller', '__uninstallor' ) );
+        register_uninstall_hook( __FILE__, array( 'Your_Plugin_Controller', 'uninstallor' ) );
     }
 
-    public function __activator() {
+    public function activator() {
         if (! self::$activated) {
             self::$activated = true;
             $this->activation_actions();
         }
     }
 
-    public function __deactivator() {
+    public function deactivator() {
         if (self::$activated) {
             $this->deactivation_actions();
         }
     }
 
-    public function __uninstallor() {
+    public function uninstallor() {
         if (self::$activated) {
             $this->uninstallation_actions();
         }

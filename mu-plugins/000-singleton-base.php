@@ -38,10 +38,10 @@ License URI: http://opensource.org/licenses/BSD-3-Clause
 */
 
 abstract class Singleton_Base {
-	const ENABLED	   = true;
-	const DISABLED	  = false;
+	const ENABLED       = true;
+	const DISABLED      = false;
 	const EXCEPTION_HDR = 'PHP Exception:  ';
-	const DEFAULT_TZ	= 'America/New_York';
+	const DEFAULT_TZ    = 'America/New_York';
 
 	private static $instance;
 	private static $instatiator;
@@ -78,25 +78,25 @@ abstract class Singleton_Base {
 	}
 
 	public function __call( $method_name, $arguments ) {
-		self::$exception_msg_hdr = 'Unknown method: ';
-		self::$exception_msg_dvdr = '->';
-		self::call_exception_handler( $method_name, $arguments );
+		static::$exception_msg_hdr = 'Unknown method: ';
+		static::$exception_msg_dvdr = '->';
+		static::call_exception_handler( $method_name, $arguments );
 	}
 
 	public function set_class_name( $class = null ) {
-		self::$class_name = get_class( $class );
+		static::$class_name = get_class( $class );
 
 	}
 
 	public static function __callStatic( $method_name, $arguments ) {
-		self::$exception_msg_hdr = 'Unknown static method: ';
-		self::$exception_msg_dvdr = '::';
-		self::call_exception_handler( $method_name, $arguments );
+		static::$exception_msg_hdr = 'Unknown static method: ';
+		static::$exception_msg_dvdr = '::';
+		static::call_exception_handler( $method_name, $arguments );
 	}
 
 	public static function get_class_name() {
-		if ( self::$class_name ) {
-			return( self::$class_name );
+		if ( static::$class_name ) {
+			return( static::$class_name );
 		}
 
 		return( get_class() );
@@ -114,10 +114,10 @@ abstract class Singleton_Base {
 	}
 
 	public static function get_exception_msg( $method_name, $arguments ) {
-		$exception_msg  = self::$exception_msg_hdr;
-		$exception_msg .= get_class( self::$instance ) . self::$exception_msg_dvdr . $method_name;
-		$exception_msg .= self::get_arguments( $arguments );
-		$exception_msg .= self::get_instantiator_msg();
+		$exception_msg  = static::$exception_msg_hdr;
+		$exception_msg .= get_class( static::$instance ) . static::$exception_msg_dvdr . $method_name;
+		$exception_msg .= static::get_arguments( $arguments );
+		$exception_msg .= static::get_instantiator_msg();
 		//		$exception_msg .= PHP_EOL;
 		return( $exception_msg );
 	}
@@ -127,7 +127,7 @@ abstract class Singleton_Base {
 	}
 
 	public static function throw_exception_exception( $exception_msg ) {
-		error_log( self::EXCEPTION_HDR . $exception_msg, 0 );
+		error_log( static::EXCEPTION_HDR . $exception_msg, 0 );
 	}
 
 	public static function set_instantiator( $instatiator = null ) {
@@ -144,16 +144,14 @@ abstract class Singleton_Base {
 		return( $msg );
 	}
 
-	public static function get_instance( $instatiator = null) {
-		self::$instance = null;
-		self::set_instantiator( $instatiator );
+	public static function get_instance() {
 		self::set_tz();
 
-		if ( self::$instance === null ) {
-			self::$instance = new static();
+		if ( static::$instance === null ) {
+			static::$instance = new static();
 		}
 
-		return( self::$instance );
+		return( static::$instance );
 	}
 
 	public static function set_tz() {

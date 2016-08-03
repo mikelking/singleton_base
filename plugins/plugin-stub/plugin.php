@@ -1,8 +1,7 @@
 <?php
-namespace YOUR_PLUGIN_NAMESPACE;
 /*
 Plugin Name: YOUR_PLUGIN_NAME
-Version: 1.0
+Version: 1.3
 Description: YOUR_PLUGIN_DESCRIPTION
 Author: Mikel King
 Text Domain: YOUR_PLUGIN_TEXT_DOMAIN
@@ -38,30 +37,31 @@ License URI: http://opensource.org/licenses/BSD-3-Clause
 	OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-require( __DIR__ . '/inc/000-singleton-base.php' );
-require( __DIR__ . '/inc/010-base-plugin.php' );
+//namespace YOUR_PLUGIN_NAMESPACE;
 
 class Your_Plugin_Controller extends Base_Plugin {
-	const VERSION = '1.0';
+    const VERSION = '1.3';
 
-	protected function __construct() {}
+    protected function __construct() {}
 
-	protected function activation_actions() {}
+    protected function activation_actions() {}
 
-	protected function deactivation_actions() {}
+    protected function deactivation_actions() {}
 
-	protected function uninstallation_actions() {}
+    protected function uninstallation_actions() {}
 
-	protected static function init() {
-		// This is how to add an activation hook if needed
-		register_activation_hook( __FILE__, array( 'Your_Plugin_Controller', '__activator' ) );
+    protected static function init() {
+        // This is how to add an activation hook if needed
+        register_activation_hook( __FILE__, array( 'Your_Plugin_Controller', 'activator' ) );
 
-		// This is how to add an deactivation hook if needed
-		register_activation_hook( __FILE__, array( 'Your_Plugin_Controller', '__deactivator' ) );
+        // This is how to add an deactivation hook if needed
+        register_activation_hook( __FILE__, array( 'Your_Plugin_Controller', 'deactivator' ) );
 
-		// This is how to add an uninstallation hook if needed
-		register_uninstall_hook( __FILE__, array( 'Your_Plugin_Controller', '__uninstallor' ) );
-	}
+        // This is how to add an uninstallation hook if needed
+        register_uninstall_hook( __FILE__, array( 'Your_Plugin_Controller', 'uninstallor' ) );
+    }
 }
 
 $ypc = Your_Plugin_Controller::get_instance();
+register_activation_hook( __FILE__, array( $ps, 'activator'));
+register_deactivation_hook( __FILE__, array( $ps, 'deactivator'));

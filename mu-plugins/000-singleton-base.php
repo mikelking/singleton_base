@@ -15,15 +15,15 @@ License URI: http://opensource.org/licenses/BSD-3-Clause
 	modification, are permitted provided that the following conditions are met:
 
 		* Redistributions of source code must retain the above copyright notice, this
-		  list of conditions and the following disclaimer.
+		list of conditions and the following disclaimer.
 
 		* Redistributions in binary form must reproduce the above copyright notice,
-		  this list of conditions and the following disclaimer in the documentation
-		  and/or other materials provided with the distribution.
+		this list of conditions and the following disclaimer in the documentation
+		and/or other materials provided with the distribution.
 
 		* Neither the name of the {organization} nor the names of its
-		  contributors may be used to endorse or promote products derived from
-		  this software without specific prior written permission.
+		contributors may be used to endorse or promote products derived from
+		this software without specific prior written permission.
 
 	THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 	AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
@@ -46,8 +46,6 @@ abstract class Singleton_Base {
 	private static $instance;
 	private static $instatiator;
 
-	protected static $activated = false;
-
 	public static $class_name;
 	public static $exception_msg_hdr;
 	public static $exception_msg_dvdr;
@@ -56,26 +54,9 @@ abstract class Singleton_Base {
 
 	private function __clone() {}
 
-	public function activation_actions() {}
-
-	protected function deactivation_actions() {}
-
 	//	private function __wakeup() {}
 
 	public static function init() {}
-
-	public function activator() {
-		if ( ! static::$activated ) {
-			static::$activated = true;
-			$this->activation_actions();
-		}
-	}
-
-	public function deactivator() {
-		if ( static::$activated ) {
-			$this->deactivation_actions();
-		}
-	}
 
 	public function __call( $method_name, $arguments ) {
 		static::$exception_msg_hdr = 'Unknown method: ';
@@ -84,8 +65,11 @@ abstract class Singleton_Base {
 	}
 
 	public function set_class_name( $class = null ) {
-		static::$class_name = get_class( $class );
-
+		if ( $class ) {
+			static::$class_name = $class;
+		} else {
+			static::$class_name = get_class( static::$instance );
+		}
 	}
 
 	public static function __callStatic( $method_name, $arguments ) {
@@ -99,7 +83,7 @@ abstract class Singleton_Base {
 			return( static::$class_name );
 		}
 
-		return( get_class() );
+		return( get_class( static::$instance ) );
 	}
 
 	public static function get_arguments( $arguments = null ) {
@@ -115,10 +99,10 @@ abstract class Singleton_Base {
 
 	public static function get_exception_msg( $method_name, $arguments ) {
 		$exception_msg  = static::$exception_msg_hdr;
-		$exception_msg .= get_class( static::$instance ) . static::$exception_msg_dvdr . $method_name;
+		$exception_msg .= static::get_class_name() . static::$exception_msg_dvdr . $method_name;
 		$exception_msg .= self::get_arguments( $arguments );
 		$exception_msg .= self::get_instantiator_msg();
-		//		$exception_msg .= PHP_EOL;
+
 		return( $exception_msg );
 	}
 
@@ -126,16 +110,28 @@ abstract class Singleton_Base {
 		self::throw_exception_exception( self::get_exception_msg( $method_name, $arguments ) );
 	}
 
+	/**
+	* This is where all of the magick happens
+	* @param $exception_msg
+	*/
 	public static function throw_exception_exception( $exception_msg ) {
 		error_log( static::EXCEPTION_HDR . $exception_msg, 0 );
 	}
 
+	/**
+	* @param null $instatiator
+	* @todo recommended for deprecation
+	*/
 	public static function set_instantiator( $instatiator = null ) {
 		if ( isset( $instatiator ) ) {
 			self::$instatiator = $instatiator;
 		}
 	}
 
+	/**
+	* @param null $instatiator
+	* @todo recommended for deprecation
+	*/
 	public static function get_instantiator_msg() {
 		$msg = ' by an undetermined instantiation';
 		if ( self::$instatiator ) {

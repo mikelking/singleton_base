@@ -37,7 +37,7 @@ License URI: http://opensource.org/licenses/BSD-3-Clause
 	OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-Debug::enable_error_reporting();
+//Debug::enable_error_reporting();
 
 class Base_Plugin extends Singleton_Base {
 	const IN_FOOTER = true;
@@ -104,6 +104,9 @@ class Base_Plugin extends Singleton_Base {
 		}
 	}
 
+	/**
+	 * @todo need to review this and improve the handling
+	 */
 	public static function uninstallor() {
 		if (self::$activated) {
 			$this->uninstallation_actions();

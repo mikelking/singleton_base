@@ -52,8 +52,11 @@ License URI: http://opensource.org/licenses/BSD-3-Clause
  * @see http://php.net/manual/en/features.cookies.php
  *
  */
-class Cookie_Controller extends Base_Plugin {
+class Cookie_Controller extends Singleton_Base  {
 	const VERSION            = '1.2';
+	const IN_FOOTER          = true;
+	const IN_HEADER          = false;
+	const FILE_SPEC          = __FILE__;
 	const DEFAULT_DOMAIN     = 'www.jafdip.com';
 	const DEFAULT_EXPIRATION = '+1 year';
 	const DEFAULT_PATH       = '/';
@@ -85,6 +88,7 @@ class Cookie_Controller extends Base_Plugin {
 	}
 
 	/**
+	 * @todo refactor unsing late static binding to eliminate the param passing silliness
 	 * @param null $cookie_domain
 	 * @return null|static
 	 */
@@ -94,7 +98,7 @@ class Cookie_Controller extends Base_Plugin {
 		}
 		self::use_current_domain();
 		print('<!-- Cookie Domain: ' . self::$cookie_domain . '. -->' . PHP_EOL );
-		return( $this );
+		return( self::$cookie_domain );
 	}
 
 	/**
@@ -109,7 +113,7 @@ class Cookie_Controller extends Base_Plugin {
 
 	/**
 	 * @param $cookie
-	 * @return null|static
+	 * @return array|null
 	 */
 	public static function finder( $cookie_key ) {
 		if ( isset( $cookie_key ) && is_array( $cookie_key ) && array_key_exists( 'name', $cookie_key ) && array_key_exists( $cookie_key['name'], $_COOKIE ) ) {
@@ -125,7 +129,7 @@ class Cookie_Controller extends Base_Plugin {
 
 	/**
 	 * @param $cookie_key
-	 * @return bool
+	 * @return bool|array
 	 */
 	protected static function cookie_finder( $cookie_key ) {
 		if ( isset( $cookie_key ) && array_key_exists( $cookie_key, $_COOKIE ) ) {
@@ -255,7 +259,7 @@ class Cookie_Controller extends Base_Plugin {
 
 
 	/**
-	 * @return null|static
+	 * @return null
 	 */
 	public function enqueue_scripts() {
 		wp_register_script(
@@ -266,6 +270,7 @@ class Cookie_Controller extends Base_Plugin {
 			self::IN_HEADER
 		);
 		wp_enqueue_script( self::COOKIE_LIB_NAME );
+		return;
 	}
 
 	/**

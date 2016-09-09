@@ -38,10 +38,11 @@ License URI: http://opensource.org/licenses/BSD-3-Clause
 */
 
 abstract class Singleton_Base {
-	const ENABLED	   = true;
-	const DISABLED	  = false;
+	const ENABLED       = true;
+	const DISABLED      = false;
 	const EXCEPTION_HDR = 'PHP Exception:  ';
-	const DEFAULT_TZ	= 'America/New_York';
+	const DEFAULT_TZ    = 'America/New_York';
+	const FILE_SPEC     = __FILE__;
 
 	private static $instance;
 	private static $instatiator;
@@ -106,7 +107,7 @@ abstract class Singleton_Base {
 		$exception_msg .= get_class( self::$instance ) . self::$exception_msg_dvdr . $method_name;
 		$exception_msg .= self::get_arguments( $arguments );
 		$exception_msg .= self::get_instantiator_msg();
-		//      $exception_msg .= PHP_EOL;
+
 		return( $exception_msg );
 	}
 

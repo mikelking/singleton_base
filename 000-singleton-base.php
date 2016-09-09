@@ -61,7 +61,7 @@ abstract class Singleton_Base {
 
 	public function deactivator() {}
 
-	public function uninstallor() {}
+	public static function uninstallor() {}
 
 	//  private function __wakeup() {}
 

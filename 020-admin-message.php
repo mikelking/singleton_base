@@ -55,7 +55,7 @@ class Admin_Message {
 
 	public $error_level;
 
-	function __construct($message) {
+	public function __construct($message) {
 		if ( isset( $message ) ) {
 			$this->admin_msg = $message;
 		}

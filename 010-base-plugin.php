@@ -37,6 +37,8 @@ License URI: http://opensource.org/licenses/BSD-3-Clause
 	OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+Debug::enable_error_reporting();
+
 class Base_Plugin extends Singleton_Base {
 	const IN_FOOTER = true;
 	const IN_HEADER = false;
@@ -86,7 +88,7 @@ class Base_Plugin extends Singleton_Base {
 		register_activation_hook( static::FILE_SPEC, array( $this, 'deactivator' ) );
 
 		// This is how to add an uninstallation hook if needed
-		register_uninstall_hook( static::FILE_SPEC, array( $this, 'uninstallor' ) );
+		register_uninstall_hook( static::FILE_SPEC, array( __CLASS__, 'uninstallor' ) );
 	}
 
 	public function activator() {
@@ -102,7 +104,7 @@ class Base_Plugin extends Singleton_Base {
 		}
 	}
 
-	public function uninstallor() {
+	public static function uninstallor() {
 		if (self::$activated) {
 			$this->uninstallation_actions();
 		}

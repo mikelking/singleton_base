@@ -52,7 +52,7 @@ License URI: http://opensource.org/licenses/BSD-3-Clause
  * @license BSD(3 Clause) http://opensource.org/licenses/BSD-3-Clause
  *
  */
-class Variant_Base extends Base_Plugin {
+class Variant_Base extends Singleton_Base {
 	const VERSION      = '1.7';
 	const AD_BLOCKER   = 'noads';
 	const ASYNC_FLAG   = 'async-test';

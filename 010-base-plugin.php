@@ -78,7 +78,7 @@ class Base_Plugin extends Singleton_Base {
 	* The goal is to make as much of this plugin building;
 	* as well plugable as possible
 	*/
-	protected static function init() {
+	public function init() {
 		// This is how to add an activation hook if needed
 		register_activation_hook( static::FILE_SPEC, array( $this, 'activator' ) );
 

@@ -8,15 +8,22 @@ note to self: https://git-scm.com/book/en/v2/Git-Basics-Tagging
 
 - The code in the project is licensed under BSD(3-clause) http://opensource.org/licenses/BSD-3-Clause because there is nothing WordPress specific and it is intended to apply to a larger audience. You are free to incorporate this library subsystem code into your projects in the same way that WordPress has incorporated several other BSD3 licensed subsystems into the core project. These subsystems retain their licensing because BSD3 projects are happily compatible with the GPL goodness of the rest of the project. In short this code *must* remain BSD3 and distributed with it's license references intact, but you are free to license *your* code as you see fit.
 
-- This system has been crafted in an attempt to make is submodule installable. Assuming you have a repository setup with WordPress installed in a wordpress subdirectory you would add the following to your .gitmodules file in the root of the tree.
+- This system has been crafted in an attempt to make is submodule installable. Assuming you have a repository setup with WordPress installed in a wordpress subdirectory you would add the following to your .gitmodules file in the root of the tree via the git submoldule add comand.
 
 ```
-[submodule "wordpress/wp-content/mu-plugins"]
+cd REPO/wordpress/wp-content/
+git submodule add --force --name mu-plugins https://github.com/mikelking/singleton_base.git mu-plugins
+```
+
+
+
+```
+[submodule "mu-plugins"]
         path = wordpress/wp-content/mu-plugins
         url = https://github.com/mikelking/singleton_base.git
 ```
 
-- The above submodule system is a workin progress and anyone who may be following this project will notice the reoganization of the file system hierarchy into a flat tree. the plugin-stub is intended as a model for starting a new child plugin and should be copied into the plugins directory. Also make note of the files names as they have been crafted to load with the WordPress mu-plugin autoloader in a specific order.
+- The above submodule system is a work in progress and anyone who may be following this project will notice the reoganization of the file system hierarchy into a flat tree. the plugin-stub is intended as a model for starting a new child plugin and should be copied into the plugins directory. Also make note of the files names as they have been crafted to load with the WordPress mu-plugin autoloader in a specific order.
 
 ```
 	000-singleton-base.php

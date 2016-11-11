@@ -1,0 +1,23 @@
+{
+    "name": "mikelking/singleton_base",
+    "description": "WordPress mu plugin framework.",
+    "keywords": ["mu-plugin", "framework"],
+    "type": "wordpress-mu-framework",
+    "homepage": "http://jafdip.com/",
+    "license": "BSD-3",
+    "authors": [
+        {
+            "name": "Olivent, llc.",
+            "email": "info@olivent.com",
+            "homepage": "https://github.com/mikelking/dummy"
+        },
+        {
+            "name": "Mikel King",
+            "email": "mikel.king@olivent.com",
+            "homepage": "https://github.com/mikelking"
+    }
+    ],
+    "require": {
+        "php": ">=5.5"
+    }
+}

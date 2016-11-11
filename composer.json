@@ -18,6 +18,7 @@
     }
     ],
     "require": {
-        "php": ">=5.5"
+        "php": ">=5.5",
+        "johnpbloch/wordpress-core-installer": "~0.2"
     }
 }

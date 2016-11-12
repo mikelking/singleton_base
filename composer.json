@@ -21,9 +21,4 @@
         "php": ">=5.5",
         "composer/installers": "v1.2.0",
     },
-    "extra": {
-        "installer-paths": {
-            "wordpress/wp-content/mu-plugins/": ["mikelking/singleton_base"]
-        }
-    }
 }

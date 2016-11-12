@@ -2,7 +2,7 @@
     "name": "mikelking/singleton_base",
     "description": "WordPress mu plugin framework.",
     "keywords": ["mu-plugin", "framework"],
-    "type": "wordpress-mu-framework",
+    "type": "wordpress-muplugin",
     "homepage": "http://jafdip.com/",
     "license": "BSD-3",
     "authors": [
@@ -19,6 +19,6 @@
     ],
     "require": {
         "php": ">=5.5",
-        "johnpbloch/wordpress-core-installer": "~0.2"
+        "composer/installers": "v1.0.12",
     }
 }

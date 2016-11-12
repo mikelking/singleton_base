@@ -19,7 +19,7 @@
     ],
     "require": {
         "php": ">=5.5",
-        "composer/installers": "v1.0.12",
+        "composer/installers": "v1.2.0",
     },
     "extra": {
         "installer-paths": {

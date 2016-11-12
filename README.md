@@ -1,6 +1,14 @@
 # Singleton_Base
 
-Version 1.0
+Version 1.0.8
+
+### We are looking for a new name
+
+- This project has undergone a number of changes over the years since is began as a single class. Now that the composer piece has been riddled out it is time for this project to take on a new name. The three top contenders are Project: Scotch, Project: Bacon or Project Viking because that single class has evolved into a framework.
+
+### Bacon is the front runner
+
+- Bacon sums up the essence of this framework. Like bacon this framework builds some usefully tasty tools but they are intended to help you build even more amazingly delicious projects. So this framework should like bacon make your projects better. Think of your project like a grilled cheese sandwich and adding this framework (like bacon) just kicks that sandwich up to a whole new level.
 
 note to self: https://git-scm.com/book/en/v2/Git-Basics-Tagging
 
@@ -8,22 +16,9 @@ note to self: https://git-scm.com/book/en/v2/Git-Basics-Tagging
 
 - The code in the project is licensed under BSD(3-clause) http://opensource.org/licenses/BSD-3-Clause because there is nothing WordPress specific and it is intended to apply to a larger audience. You are free to incorporate this library subsystem code into your projects in the same way that WordPress has incorporated several other BSD3 licensed subsystems into the core project. These subsystems retain their licensing because BSD3 projects are happily compatible with the GPL goodness of the rest of the project. In short this code *must* remain BSD3 and distributed with it's license references intact, but you are free to license *your* code as you see fit.
 
-- This system has been crafted in an attempt to make is submodule installable. Assuming you have a repository setup with WordPress installed in a wordpress subdirectory you would add the following to your .gitmodules file in the root of the tree via the git submoldule add comand.
+- This system has been crafted in an attempt to make it ~~submodule~~ composer installable. The main goal it so simplify the repository structure and not store superfluous copies of the WordPress core or plugins that can be installed via other means. As you can see the submodule plan has been abandoned in lieu of the more flexible composer. This is because as a submodule this project would hijack the entire mu-plugins path clobbering anything else you want to install there. As a composer module it will ignore pre-existing files.
 
-```
-cd REPO/wordpress/wp-content/
-git submodule add --force --name mu-plugins https://github.com/mikelking/singleton_base.git mu-plugins
-```
-
-
-
-```
-[submodule "mu-plugins"]
-        path = wordpress/wp-content/mu-plugins
-        url = https://github.com/mikelking/singleton_base.git
-```
-
-- The above submodule system is a work in progress and anyone who may be following this project will notice the reoganization of the file system hierarchy into a flat tree. the plugin-stub is intended as a model for starting a new child plugin and should be copied into the plugins directory. Also make note of the files names as they have been crafted to load with the WordPress mu-plugin autoloader in a specific order.
+- When you run `composer update` is basically checks out the project repo and installs it into the wordpress/wp-content/mu-plugins/ directory. This means you get everything including this README.md and the plugin-stub directory. You may use the plugin-stup to build your own plugins dependent upon this `yet to be named` framework. The following is a list of the files and directory you should see added to mu-plugins.
 
 ```
 	000-singleton-base.php
@@ -38,7 +33,14 @@ git submodule add --force --name mu-plugins https://github.com/mikelking/singlet
 	020-tax-controller.php
 	020-url-magick.php
 	020-variation-base.php
+	LICENSE
+	README.md
+	composer.json
+	cookie-controller
+	plugin-stub
 ```
+
+- Simply `copy -r plugin-stub ../plugins/your-new-plugin-name` and you can start modifying the plugin.php to build your plugin on top of this framework. Don't worry about the raw plugin-stub directory sitting in your mu-plugins path, because WordPress intentionally ignores ALL subdirectories in that space.
 
 - This system relies on you having properly set your timezone and error reporting level in PHP. While there are numerous ways in which to do this the best practice is either in the php.ini or vhost config. The php.ini if extremely well documented so I will only cover the other options here;
 ```php
@@ -65,16 +67,6 @@ error_reporting(E_STRICT);
 - To use this class with WordPress:
 
     ###### These files are intended to be used as mu-plugins because it will be automatically loaded by WordPress on startup. This will make the class available to the entirety of WordPress and immediately resolve any namespace conflicts.
-
-    ###### However, if you intend on building a standalone plugin that might be published on WordPress.org then you will need start with the standalone-base implementation and carefully set the namespace accordingly to avoid clashing with anyone else who has already used this implementation in the DOT org realm.
-
-The standalone plugin is a framework guide on usage. The difference between a standalone plugin and a mu based one is the additional namespacing requirement and the require statment;
-
-```php
-<?php
-namespace YOUR_PLUGIN_NAMESPACE
-require(__DIR__ . '/inc/singleton-base.php');
-```
 
 There is a huge advantage to using the mu based solution in that if you develop multiple plugins based on this singleton class and the project is updated or improved you simple drop in the single file and all of your plugins immediately receive the benefits.
 

@@ -20,5 +20,10 @@
     "require": {
         "php": ">=5.5",
         "composer/installers": "v1.0.12",
+    },
+    "extra": {
+        "installer-paths": {
+            "wordpress/wp-content/mu-plugins/": ["mikelking/singleton_base"]
+        }
     }
 }
